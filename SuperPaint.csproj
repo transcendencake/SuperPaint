@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Figures\Figure.cs" />
+    <Compile Include="Figures\FiguresProperties.cs" />
+    <Compile Include="Instruments.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +68,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,6 +82,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\wigth.png" />
+    <None Include="Resources\undo.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\redo.png" />
+    <None Include="Resources\rectangle.png" />
+    <None Include="Resources\polygonLine.png" />
+    <None Include="Resources\polygon.png" />
+    <None Include="Resources\pen.png" />
+    <None Include="Resources\open.png" />
+    <None Include="Resources\line.png" />
+    <None Include="Resources\file.png" />
+    <None Include="Resources\ellipse.png" />
+    <None Include="Resources\color.png" />
+    <None Include="Resources\brush.png" />
+    <None Include="Resources\addFigure.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
