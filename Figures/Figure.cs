@@ -9,9 +9,12 @@ namespace SuperPaint.Figures
 {
     public abstract class Figure
     {
-        public List<Point> Points { get; protected set; }
-        protected abstract void Draw();
-        protected Figure() { }
-        public abstract Figure Instantiate(List<Point> points);
+        public Pen DrawingPen { get; set; }
+        public List<Point> Points;
+        public abstract void Draw(Point? currPoint = null);
+        public Figure()
+        {
+            Points = new List<Point>();
+        }
     }
 }

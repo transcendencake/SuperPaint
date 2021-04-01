@@ -8,32 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SuperPaint.Figures;
+using SuperPaint.Utils;
+using System.Reflection;
+using SuperPaint.Actions;
 
 namespace SuperPaint
 {
     public partial class MainForm : Form
     {
-        private Graphics graphics;
+        private Figure currFigure;
         public MainForm()
         {
             InitializeComponent();
-            graphics = this.CreateGraphics();
-        }
-
-        private void DrawingTest()
-        {
-            //Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0));
-            //graphics.DrawLine(pen, 10, 0, 100, 100);
-            //graphics.DrawEllipse(pen, new Rectangle(10, 100, 150, 100));
-            //graphics.DrawRectangle(pen, new Rectangle(10, 220, 150, 100));
-            //graphics.DrawLines(pen, new Point[] { new Point(10, 350), new Point(100, 450), new Point(10, 550) });
-            //graphics.DrawPolygon(pen, new PointF[] { new PointF(200,50), new PointF(200, 150), new PointF(300, 150),
-            //    new PointF(250, 100), new PointF(300, 100) , new PointF(200, 50)});
+            FiguresProperties.Canvas = this.CreateGraphics();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            DrawingTest();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -65,11 +56,41 @@ namespace SuperPaint
             FiguresProperties.CurrBrush = new SolidBrush(penColorDialog.Color);
         }
 
+        private void Figure_Click(object sender, EventArgs e)
+        {
+            var button = sender as ToolStripButton;
+            if (button != null)
+            {
+                string name = button.Name;
+                if (!Storage.Constructors.ContainsKey(name))
+                {
+                    Type figureType = Type.GetType("SuperPaint.Figures." + button.Name, true);
+                    Storage.Constructors.Add(name, figureType.GetConstructor(new Type[0]));
+                }
+                currFigure = Storage.Constructors[name].Invoke(new Object[0]) as Figure;
+            }                
+        }
 
+        private void MainForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                currFigure.Points.Add(e.Location);
+            }
+            else if (e.Button == MouseButtons.Right)
+            {                
+                if (currFigure.Points.Count >= 2)
+                {
+                    Storage.AllFigures.Add(currFigure);
+                    Storage.AddAction(new FigureCreate { Figure = currFigure });
+                }
+                currFigure = null;
+            }
+        }
 
-        //private void MainForm_Paint(object sender, PaintEventArgs e)
-        //{
+        private void MainForm_MouseMove(object sender, MouseEventArgs e)
+        {
 
-        //}
+        }
     }
 }
