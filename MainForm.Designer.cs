@@ -54,9 +54,10 @@ namespace SuperPaint
             this.Rectan = new System.Windows.Forms.ToolStripButton();
             this.Ellipse = new System.Windows.Forms.ToolStripButton();
             this.Polygon = new System.Windows.Forms.ToolStripButton();
-            this.anglesBox = new System.Windows.Forms.ToolStripTextBox();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -67,7 +68,7 @@ namespace SuperPaint
             this.brushToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(749, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(789, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -198,109 +199,141 @@ namespace SuperPaint
             this.PolyLine,
             this.Rectan,
             this.Ellipse,
-            this.Polygon,
-            this.anglesBox});
+            this.Polygon});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(30, 375);
+            this.toolStrip1.Size = new System.Drawing.Size(40, 427);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // undo
             // 
+            this.undo.AutoSize = false;
+            this.undo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.undo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.undo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.undo.Image = global::SuperPaint.Properties.Resources.undo;
             this.undo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.undo.Name = "undo";
-            this.undo.Size = new System.Drawing.Size(27, 20);
+            this.undo.Size = new System.Drawing.Size(39, 40);
             this.undo.Text = "undo";
+            this.undo.Click += new System.EventHandler(this.undo_Click);
             // 
             // redo
             // 
+            this.redo.AutoSize = false;
+            this.redo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.redo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.redo.Image = global::SuperPaint.Properties.Resources.redo;
             this.redo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.redo.Name = "redo";
-            this.redo.Size = new System.Drawing.Size(27, 20);
+            this.redo.Size = new System.Drawing.Size(37, 40);
             this.redo.Text = "redo";
+            this.redo.Click += new System.EventHandler(this.redo_Click);
             // 
             // Line
             // 
+            this.Line.AutoSize = false;
+            this.Line.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Line.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.Line.Image = global::SuperPaint.Properties.Resources.line;
             this.Line.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Line.Name = "Line";
-            this.Line.Size = new System.Drawing.Size(27, 20);
+            this.Line.Size = new System.Drawing.Size(39, 40);
             this.Line.Text = "line";
             this.Line.Click += new System.EventHandler(this.Figure_Click);
             // 
             // PolyLine
             // 
+            this.PolyLine.AutoSize = false;
+            this.PolyLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.PolyLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.PolyLine.Image = global::SuperPaint.Properties.Resources.polygonLine;
             this.PolyLine.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.PolyLine.Name = "PolyLine";
-            this.PolyLine.Size = new System.Drawing.Size(27, 20);
+            this.PolyLine.Size = new System.Drawing.Size(39, 40);
             this.PolyLine.Text = "polygon line";
             this.PolyLine.Click += new System.EventHandler(this.Figure_Click);
             // 
             // Rectan
             // 
+            this.Rectan.AutoSize = false;
+            this.Rectan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Rectan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.Rectan.Image = global::SuperPaint.Properties.Resources.rectangle;
             this.Rectan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Rectan.Name = "Rectan";
-            this.Rectan.Size = new System.Drawing.Size(27, 20);
+            this.Rectan.Size = new System.Drawing.Size(39, 40);
             this.Rectan.Text = "rectangle";
             this.Rectan.Click += new System.EventHandler(this.Figure_Click);
             // 
             // Ellipse
             // 
+            this.Ellipse.AutoSize = false;
+            this.Ellipse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Ellipse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.Ellipse.Image = global::SuperPaint.Properties.Resources.ellipse;
             this.Ellipse.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Ellipse.Name = "Ellipse";
-            this.Ellipse.Size = new System.Drawing.Size(27, 20);
+            this.Ellipse.Size = new System.Drawing.Size(39, 40);
             this.Ellipse.Text = "ellipse";
             this.Ellipse.Click += new System.EventHandler(this.Figure_Click);
             // 
             // Polygon
             // 
+            this.Polygon.AutoSize = false;
+            this.Polygon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Polygon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.Polygon.Image = global::SuperPaint.Properties.Resources.polygon;
             this.Polygon.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Polygon.Name = "Polygon";
-            this.Polygon.Size = new System.Drawing.Size(27, 20);
+            this.Polygon.Size = new System.Drawing.Size(39, 40);
             this.Polygon.Text = "polygon";
             this.Polygon.Click += new System.EventHandler(this.Figure_Click);
             // 
-            // anglesBox
+            // numericUpDown2
             // 
-            this.anglesBox.AutoSize = false;
-            this.anglesBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.anglesBox.Name = "anglesBox";
-            this.anglesBox.Size = new System.Drawing.Size(27, 23);
-            this.anglesBox.Text = "4";
-            this.anglesBox.ToolTipText = "Enter ammount of polygon angles\r\n(availible value 3-999)";
+            this.numericUpDown2.Location = new System.Drawing.Point(0, 333);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(40, 20);
+            this.numericUpDown2.TabIndex = 3;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 399);
+            this.ClientSize = new System.Drawing.Size(789, 451);
+            this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Form1";
             this.Shown += new System.EventHandler(this.MainForm_Shown);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -327,13 +360,13 @@ namespace SuperPaint
         private System.Windows.Forms.SaveFileDialog serializeDialog;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton undo;
-        private System.Windows.Forms.ToolStripTextBox anglesBox;
         private System.Windows.Forms.ToolStripButton redo;
         private System.Windows.Forms.ToolStripButton Line;
         private System.Windows.Forms.ToolStripButton PolyLine;
         private System.Windows.Forms.ToolStripButton Rectan;
         private System.Windows.Forms.ToolStripButton Ellipse;
         private System.Windows.Forms.ToolStripButton Polygon;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }
 

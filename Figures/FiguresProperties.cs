@@ -10,14 +10,8 @@ namespace SuperPaint.Figures
     public static class FiguresProperties
     {
         public static Pen CurrPen = new Pen(Color.Black);
-        public static Brush CurrBrush
-        { 
-            set
-            {
-                CurrPen.Brush = value;
-            }
-        }
+        public static Color CurrBrushColor { get; set; } = Color.Black;
         public static Graphics Canvas { get; set; }
-        public static int Angles { get; set; } = 4;
+        public static int Angles { get; set; } = 3;
     }
 }

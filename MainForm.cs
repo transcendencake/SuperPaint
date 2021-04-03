@@ -17,10 +17,13 @@ namespace SuperPaint
     public partial class MainForm : Form
     {
         private Figure currFigure;
+        private string currFigureName;
+        private bool drawing;
         public MainForm()
         {
             InitializeComponent();
             FiguresProperties.Canvas = this.CreateGraphics();
+            drawing = false;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -41,7 +44,7 @@ namespace SuperPaint
         {
             var button = sender as ToolStripMenuItem;
             if (button != null)
-                MessageBox.Show(button.Text);
+                FiguresProperties.CurrPen.Width = button.Text[0] - '0';
         }
 
         private void colorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -53,11 +56,13 @@ namespace SuperPaint
         private void colorToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (penColorDialog.ShowDialog() == DialogResult.Cancel) return;
-            FiguresProperties.CurrBrush = new SolidBrush(penColorDialog.Color);
+            FiguresProperties.CurrBrushColor = penColorDialog.Color;
         }
 
         private void Figure_Click(object sender, EventArgs e)
         {
+            currFigure = null;
+            drawing = false;
             var button = sender as ToolStripButton;
             if (button != null)
             {
@@ -67,15 +72,21 @@ namespace SuperPaint
                     Type figureType = Type.GetType("SuperPaint.Figures." + button.Name, true);
                     Storage.Constructors.Add(name, figureType.GetConstructor(new Type[0]));
                 }
-                currFigure = Storage.Constructors[name].Invoke(new Object[0]) as Figure;
+                currFigureName = name;
             }                
         }
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
+            if (!drawing)
+            {
+                if (currFigureName == null) return;
+                currFigure = Storage.Constructors[currFigureName].Invoke(new Object[0]) as Figure;
+                drawing = true;
+            }
             if (e.Button == MouseButtons.Left)
             {
-                currFigure.Points.Add(e.Location);
+                currFigure.Points.Add(e.Location);    
             }
             else if (e.Button == MouseButtons.Right)
             {                
@@ -83,14 +94,38 @@ namespace SuperPaint
                 {
                     Storage.AllFigures.Add(currFigure);
                     Storage.AddAction(new FigureCreate { Figure = currFigure });
+                    DrawingUtils.Redraw();
                 }
                 currFigure = null;
+                drawing = false;
             }
         }
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
+            if (drawing)
+            {
+                DrawingUtils.Redraw();
+                currFigure.Draw(e.Location);
+            }
+        }
 
+        private void undo_Click(object sender, EventArgs e)
+        {
+            Storage.Undo();
+            DrawingUtils.Redraw();
+        }
+
+        private void redo_Click(object sender, EventArgs e)
+        {
+            Storage.Redo();
+            DrawingUtils.Redraw();
+        }
+
+        private void numericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            var obj = (NumericUpDown)sender;
+            FiguresProperties.Angles = (int)obj.Value;
         }
     }
 }

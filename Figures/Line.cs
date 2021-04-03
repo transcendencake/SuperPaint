@@ -11,7 +11,9 @@ namespace SuperPaint.Figures
     {
         public override void Draw(Point? currPoint = null)
         {
-            throw new NotImplementedException();
+            DrawingPen = DrawingPen ?? (Pen)FiguresProperties.CurrPen.Clone();
+            Point secondPoint = this.Points.Count == 1 ? (Point)currPoint : this.Points[1];
+            FiguresProperties.Canvas.DrawLine(DrawingPen, this.Points[0], secondPoint);
         }
         public Line() : base()
         { }

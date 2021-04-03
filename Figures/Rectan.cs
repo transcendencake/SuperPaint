@@ -11,7 +11,12 @@ namespace SuperPaint.Figures
     {
         public override void Draw(Point? currPoint = null)
         {
-            throw new NotImplementedException();
+            DrawingPen = DrawingPen ?? new Pen(new SolidBrush(FiguresProperties.CurrBrushColor));
+            Point secondPoint = this.Points.Count == 1 ? (Point)currPoint : this.Points[1];
+            FiguresProperties.Canvas.FillRectangle(DrawingPen.Brush,
+                Points[0].X < secondPoint.X ? Points[0].X : secondPoint.X,
+                Points[0].Y < secondPoint.Y ? Points[0].Y : secondPoint.Y,
+                Math.Abs(secondPoint.X - Points[0].X), Math.Abs(Points[0].Y - secondPoint.Y));
         }
         public Rectan() : base()
         { }

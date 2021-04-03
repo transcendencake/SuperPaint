@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +10,12 @@ namespace SuperPaint.Figures
     {
         public override void Draw(Point? currPoint = null)
         {
-            throw new NotImplementedException();
+            DrawingPen = DrawingPen ?? (Pen)FiguresProperties.CurrPen.Clone(); //new Pen(FiguresProperties.CurrPen.Color, FiguresProperties.CurrPen.Width);
+            Point[] tempPoints = new Point[Points.Count + (currPoint == null ? 0 : 1)];
+            Points.CopyTo(tempPoints);
+            if (currPoint != null)
+                tempPoints[tempPoints.Length - 1] = (Point)currPoint;
+            FiguresProperties.Canvas.DrawLines(DrawingPen, tempPoints);
         }
         public PolyLine() : base()
         { }
