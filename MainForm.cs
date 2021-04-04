@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,11 +37,32 @@ namespace SuperPaint
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (serializeDialog.ShowDialog() == DialogResult.Cancel) return;
+            using (StreamWriter streamWriter = new StreamWriter(serializeDialog.FileName, false))
+            {
+                foreach (var figure in Storage.AllFigures)
+                {
+                    streamWriter.WriteLine(figure.Serialize());
+                }
+            }            
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (deserializeDialog.ShowDialog() == DialogResult.Cancel) return;
+            Storage.Clear();
+            using (StreamReader streamReader = new StreamReader(deserializeDialog.FileName))
+            {
+                string line;
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    string[] temp = line.Split(',');
+                    Type figureType = Type.GetType(temp[0], true);
+                    Figure figure = figureType.GetConstructor(new Type[0]).Invoke(new Object[0]) as Figure;
+                    figure.Deserialize(temp);
+                    Storage.AllFigures.Add(figure);
+                }
+            }
+            DrawingUtils.Redraw();
         }
 
         private void ptToolStripMenuItem_Click(object sender, EventArgs e)

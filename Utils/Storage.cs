@@ -11,14 +11,14 @@ namespace SuperPaint.Utils
 {
     internal static class Storage
     {
-        public static Dictionary<String, ConstructorInfo> Constructors;
+        //public static Dictionary<String, ConstructorInfo> Constructors;
         public static List<Figure> AllFigures;
         private static Stack<IFigureAction> doneActions;
         private static Stack<IFigureAction> undoneActions;
 
         static Storage()
         {
-            Constructors = new Dictionary<string, ConstructorInfo>();
+            //Constructors = new Dictionary<string, ConstructorInfo>();
             AllFigures = new List<Figure>();
             doneActions = new Stack<IFigureAction>();
             undoneActions = new Stack<IFigureAction>();
@@ -42,6 +42,12 @@ namespace SuperPaint.Utils
         public static void AddAction(IFigureAction action)
         {
             doneActions.Push(action);
+            undoneActions.Clear();
+        }
+        public static void Clear()
+        {
+            AllFigures.Clear();
+            doneActions.Clear();
             undoneActions.Clear();
         }
     }

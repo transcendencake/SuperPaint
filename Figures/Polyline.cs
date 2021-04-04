@@ -17,6 +17,31 @@ namespace SuperPaint.Figures
                 tempPoints[tempPoints.Length - 1] = (Point)currPoint;
             FiguresProperties.Canvas.DrawLines(DrawingPen, tempPoints);
         }
+
+        public override string Serialize()
+        {
+            string result = "";
+            result += this.GetType() + ",";
+            result += DrawingPen.Color.ToArgb() + ",";
+            result += (int)DrawingPen.Width;
+            for (int i = 0; i < Points.Count; i++)
+            {
+                result += "," + Points[i].X + "," + Points[i].Y;
+            }
+            return result;
+        }
+
+        public override void Deserialize(string[] values)
+        {
+            DrawingPen = new Pen(Color.FromArgb(int.Parse(values[1])));
+            DrawingPen.Width = int.Parse(values[2]);
+            for (int i = 3; i < values.Length; i++)
+            {
+                Points.Add(new Point(int.Parse(values[i]), int.Parse(values[i + 1])));
+                i++;
+            }
+        }
+
         public PolyLine() : base()
         { }
     }

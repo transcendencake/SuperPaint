@@ -16,5 +16,7 @@ namespace SuperPaint.Figures
         {
             Points = new List<Point>();
         }
+        public abstract string Serialize();
+        public abstract void Deserialize(string[] values);
     }
 }
