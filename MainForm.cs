@@ -17,13 +17,16 @@ namespace SuperPaint
     public partial class MainForm : Form
     {
         private Figure currFigure;
-        private string currFigureName;
+        //private string currFigureName;
         private bool drawing;
+        private delegate Figure Instantiate();
+        Instantiate instantiateFigure;
         public MainForm()
         {
             InitializeComponent();
             FiguresProperties.Canvas = this.CreateGraphics();
             drawing = false;
+            instantiateFigure = () => new Line();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -59,29 +62,29 @@ namespace SuperPaint
             FiguresProperties.CurrBrushColor = penColorDialog.Color;
         }
 
-        private void Figure_Click(object sender, EventArgs e)
-        {
-            currFigure = null;
-            drawing = false;
-            var button = sender as ToolStripButton;
-            if (button != null)
-            {
-                string name = button.Name;
-                if (!Storage.Constructors.ContainsKey(name))
-                {
-                    Type figureType = Type.GetType("SuperPaint.Figures." + button.Name, true);
-                    Storage.Constructors.Add(name, figureType.GetConstructor(new Type[0]));
-                }
-                currFigureName = name;
-            }                
-        }
+        //private void Figure_Click(object sender, EventArgs e)
+        //{
+        //    currFigure = null;
+        //    drawing = false;
+        //    var button = sender as ToolStripButton;
+        //    if (button != null)
+        //    {
+        //        string name = button.Name;
+        //        if (!Storage.Constructors.ContainsKey(name))
+        //        {
+        //            Type figureType = Type.GetType("SuperPaint.Figures." + button.Name, true);
+        //            Storage.Constructors.Add(name, figureType.GetConstructor(new Type[0]));
+        //        }
+        //        currFigureName = name;
+        //    }                
+        //}
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             if (!drawing)
             {
-                if (currFigureName == null) return;
-                currFigure = Storage.Constructors[currFigureName].Invoke(new Object[0]) as Figure;
+                //if (currFigureName == null) return;
+                currFigure = instantiateFigure();//Storage.Constructors[currFigureName].Invoke(new Object[0]) as Figure;
                 drawing = true;
             }
             if (e.Button == MouseButtons.Left)
@@ -126,6 +129,36 @@ namespace SuperPaint
         {
             var obj = (NumericUpDown)sender;
             FiguresProperties.Angles = (int)obj.Value;
+        }
+
+        private void Line_Click(object sender, EventArgs e)
+        {
+            instantiateFigure = () => new Line();
+        }
+
+        private void PolyLine_Click(object sender, EventArgs e)
+        {
+            instantiateFigure = () => new PolyLine();
+        }
+
+        private void Rectan_Click(object sender, EventArgs e)
+        {
+            instantiateFigure = () => new Rectan();
+        }
+
+        private void Ellipse_Click(object sender, EventArgs e)
+        {
+            instantiateFigure = () => new Ellipse();
+        }
+
+        private void manualPol_Click(object sender, EventArgs e)
+        {
+            instantiateFigure = () => new ManualPolygon();
+        }
+
+        private void ManualPolygon_Click(object sender, EventArgs e)
+        {
+            instantiateFigure = () => new Polygon();
         }
     }
 }

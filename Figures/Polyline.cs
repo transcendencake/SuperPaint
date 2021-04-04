@@ -10,7 +10,7 @@ namespace SuperPaint.Figures
     {
         public override void Draw(Point? currPoint = null)
         {
-            DrawingPen = DrawingPen ?? (Pen)FiguresProperties.CurrPen.Clone(); //new Pen(FiguresProperties.CurrPen.Color, FiguresProperties.CurrPen.Width);
+            DrawingPen = DrawingPen ?? (Pen)FiguresProperties.CurrPen.Clone();
             Point[] tempPoints = new Point[Points.Count + (currPoint == null ? 0 : 1)];
             Points.CopyTo(tempPoints);
             if (currPoint != null)

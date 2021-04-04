@@ -52,6 +52,7 @@
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\FiguresProperties.cs" />
     <Compile Include="Figures\Line.cs" />
+    <Compile Include="Figures\ManualPolygon.cs" />
     <Compile Include="Figures\Polygon.cs" />
     <Compile Include="Figures\PolyLine.cs" />
     <Compile Include="Figures\Rectan.cs" />

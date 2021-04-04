@@ -53,8 +53,9 @@ namespace SuperPaint
             this.PolyLine = new System.Windows.Forms.ToolStripButton();
             this.Rectan = new System.Windows.Forms.ToolStripButton();
             this.Ellipse = new System.Windows.Forms.ToolStripButton();
-            this.Polygon = new System.Windows.Forms.ToolStripButton();
+            this.ManualPolygon = new System.Windows.Forms.ToolStripButton();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.manualPol = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -199,7 +200,8 @@ namespace SuperPaint
             this.PolyLine,
             this.Rectan,
             this.Ellipse,
-            this.Polygon});
+            this.manualPol,
+            this.ManualPolygon});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
@@ -242,7 +244,7 @@ namespace SuperPaint
             this.Line.Name = "Line";
             this.Line.Size = new System.Drawing.Size(39, 40);
             this.Line.Text = "line";
-            this.Line.Click += new System.EventHandler(this.Figure_Click);
+            this.Line.Click += new System.EventHandler(this.Line_Click);
             // 
             // PolyLine
             // 
@@ -254,7 +256,7 @@ namespace SuperPaint
             this.PolyLine.Name = "PolyLine";
             this.PolyLine.Size = new System.Drawing.Size(39, 40);
             this.PolyLine.Text = "polygon line";
-            this.PolyLine.Click += new System.EventHandler(this.Figure_Click);
+            this.PolyLine.Click += new System.EventHandler(this.PolyLine_Click);
             // 
             // Rectan
             // 
@@ -266,7 +268,7 @@ namespace SuperPaint
             this.Rectan.Name = "Rectan";
             this.Rectan.Size = new System.Drawing.Size(39, 40);
             this.Rectan.Text = "rectangle";
-            this.Rectan.Click += new System.EventHandler(this.Figure_Click);
+            this.Rectan.Click += new System.EventHandler(this.Rectan_Click);
             // 
             // Ellipse
             // 
@@ -278,23 +280,23 @@ namespace SuperPaint
             this.Ellipse.Name = "Ellipse";
             this.Ellipse.Size = new System.Drawing.Size(39, 40);
             this.Ellipse.Text = "ellipse";
-            this.Ellipse.Click += new System.EventHandler(this.Figure_Click);
+            this.Ellipse.Click += new System.EventHandler(this.Ellipse_Click);
             // 
-            // Polygon
+            // ManualPolygon
             // 
-            this.Polygon.AutoSize = false;
-            this.Polygon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Polygon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Polygon.Image = global::SuperPaint.Properties.Resources.polygon;
-            this.Polygon.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Polygon.Name = "Polygon";
-            this.Polygon.Size = new System.Drawing.Size(39, 40);
-            this.Polygon.Text = "polygon";
-            this.Polygon.Click += new System.EventHandler(this.Figure_Click);
+            this.ManualPolygon.AutoSize = false;
+            this.ManualPolygon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ManualPolygon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ManualPolygon.Image = global::SuperPaint.Properties.Resources.polygon;
+            this.ManualPolygon.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ManualPolygon.Name = "ManualPolygon";
+            this.ManualPolygon.Size = new System.Drawing.Size(39, 40);
+            this.ManualPolygon.Text = "polygon";
+            this.ManualPolygon.Click += new System.EventHandler(this.ManualPolygon_Click);
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(0, 333);
+            this.numericUpDown2.Location = new System.Drawing.Point(0, 375);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             20,
             0,
@@ -314,6 +316,17 @@ namespace SuperPaint
             0,
             0});
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
+            // 
+            // manualPol
+            // 
+            this.manualPol.AutoSize = false;
+            this.manualPol.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.manualPol.Image = global::SuperPaint.Properties.Resources.polygonLine;
+            this.manualPol.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.manualPol.Name = "manualPol";
+            this.manualPol.Size = new System.Drawing.Size(37, 40);
+            this.manualPol.Text = "manual polygon";
+            this.manualPol.Click += new System.EventHandler(this.manualPol_Click);
             // 
             // MainForm
             // 
@@ -365,8 +378,9 @@ namespace SuperPaint
         private System.Windows.Forms.ToolStripButton PolyLine;
         private System.Windows.Forms.ToolStripButton Rectan;
         private System.Windows.Forms.ToolStripButton Ellipse;
-        private System.Windows.Forms.ToolStripButton Polygon;
+        private System.Windows.Forms.ToolStripButton ManualPolygon;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.ToolStripButton manualPol;
     }
 }
 
