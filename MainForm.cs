@@ -68,7 +68,7 @@ namespace SuperPaint
         {
             if (addDllDialog.ShowDialog() == DialogResult.Cancel) return;
             Assembly asm = Assembly.LoadFrom(addDllDialog.FileName);
-            Type[] types = asm.GetTypes().Where(t => t.Name != "Figure").ToArray();
+            Type[] types = asm.GetTypes();//.Where(t => t.Name != "Figure").ToArray();
             foreach (var type in types)
             {
                 ToolStripButton btn = new ToolStripButton
