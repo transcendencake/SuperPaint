@@ -53,9 +53,10 @@ namespace SuperPaint
             this.PolyLine = new System.Windows.Forms.ToolStripButton();
             this.Rectan = new System.Windows.Forms.ToolStripButton();
             this.Ellipse = new System.Windows.Forms.ToolStripButton();
+            this.manualPol = new System.Windows.Forms.ToolStripButton();
             this.ManualPolygon = new System.Windows.Forms.ToolStripButton();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.manualPol = new System.Windows.Forms.ToolStripButton();
+            this.addDllDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -106,6 +107,7 @@ namespace SuperPaint
             this.addNewFigureToolStripMenuItem.Name = "addNewFigureToolStripMenuItem";
             this.addNewFigureToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.addNewFigureToolStripMenuItem.Text = "Add new figure";
+            this.addNewFigureToolStripMenuItem.Click += new System.EventHandler(this.addNewFigureToolStripMenuItem_Click);
             // 
             // penToolStripMenuItem
             // 
@@ -282,6 +284,17 @@ namespace SuperPaint
             this.Ellipse.Text = "ellipse";
             this.Ellipse.Click += new System.EventHandler(this.Ellipse_Click);
             // 
+            // manualPol
+            // 
+            this.manualPol.AutoSize = false;
+            this.manualPol.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.manualPol.Image = global::SuperPaint.Properties.Resources.polygonLine;
+            this.manualPol.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.manualPol.Name = "manualPol";
+            this.manualPol.Size = new System.Drawing.Size(37, 40);
+            this.manualPol.Text = "manual polygon";
+            this.manualPol.Click += new System.EventHandler(this.manualPol_Click);
+            // 
             // ManualPolygon
             // 
             this.ManualPolygon.AutoSize = false;
@@ -296,7 +309,7 @@ namespace SuperPaint
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(0, 375);
+            this.numericUpDown2.Location = new System.Drawing.Point(0, 419);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             20,
             0,
@@ -317,16 +330,9 @@ namespace SuperPaint
             0});
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
             // 
-            // manualPol
+            // addDllDialog
             // 
-            this.manualPol.AutoSize = false;
-            this.manualPol.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.manualPol.Image = global::SuperPaint.Properties.Resources.polygonLine;
-            this.manualPol.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.manualPol.Name = "manualPol";
-            this.manualPol.Size = new System.Drawing.Size(37, 40);
-            this.manualPol.Text = "manual polygon";
-            this.manualPol.Click += new System.EventHandler(this.manualPol_Click);
+            this.addDllDialog.FileName = "addDlldialog";
             // 
             // MainForm
             // 
@@ -381,6 +387,7 @@ namespace SuperPaint
         private System.Windows.Forms.ToolStripButton ManualPolygon;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.ToolStripButton manualPol;
+        private System.Windows.Forms.OpenFileDialog addDllDialog;
     }
 }
 

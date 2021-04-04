@@ -64,6 +64,32 @@ namespace SuperPaint
             }
             DrawingUtils.Redraw();
         }
+        private void addNewFigureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (addDllDialog.ShowDialog() == DialogResult.Cancel) return;
+            Assembly asm = Assembly.LoadFrom(addDllDialog.FileName);
+            Type[] types = asm.GetTypes().Where(t => t.Name != "Figure").ToArray();
+            foreach (var type in types)
+            {
+                ToolStripButton btn = new ToolStripButton
+                {
+                    AutoSize = false,
+                    Size = new Size(39, 40),
+                    Text = type.Name,
+                    DisplayStyle = ToolStripItemDisplayStyle.Image,
+                    Image = Properties.Resources.pen,
+                    ImageTransparentColor = Color.Magenta
+            };
+                btn.Click += (object send, EventArgs args) => instantiateFigure = delegate ()
+                {
+                    Figure fig = (Figure)Activator.CreateInstance(type);
+                    fig.Canvas = FiguresProperties.Canvas;
+                    fig.DrawingPen = new Pen(new SolidBrush(FiguresProperties.CurrBrushColor));
+                    return fig;
+                };
+                toolStrip1.Items.Add(btn);
+            }
+        }
 
         private void ptToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -181,6 +207,6 @@ namespace SuperPaint
         private void ManualPolygon_Click(object sender, EventArgs e)
         {
             instantiateFigure = () => new Polygon();
-        }
+        }        
     }
 }

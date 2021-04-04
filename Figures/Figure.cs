@@ -9,6 +9,7 @@ namespace SuperPaint.Figures
 {
     public abstract class Figure
     {
+        public Graphics Canvas { get; set; }
         public Pen DrawingPen { get; set; }
         public List<Point> Points;
         public abstract void Draw(Point? currPoint = null);
