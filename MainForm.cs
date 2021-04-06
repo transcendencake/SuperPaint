@@ -68,21 +68,23 @@ namespace SuperPaint
         {
             if (addDllDialog.ShowDialog() == DialogResult.Cancel) return;
             Assembly asm = Assembly.LoadFrom(addDllDialog.FileName);
-            Type[] types = asm.GetTypes();//.Where(t => t.Name != "Figure").ToArray();
+            var interfaceType = typeof(IFigureFactory); 
+            Type[] types = asm.GetTypes().Where(t => t != interfaceType && interfaceType.IsAssignableFrom(t)).ToArray();
             foreach (var type in types)
             {
+                IFigureFactory factory = (IFigureFactory)Activator.CreateInstance(type);
                 ToolStripButton btn = new ToolStripButton
                 {
                     AutoSize = false,
                     Size = new Size(39, 40),
-                    Text = type.Name,
+                    Text = factory.Name,
                     DisplayStyle = ToolStripItemDisplayStyle.Image,
                     Image = Properties.Resources.pen,
                     ImageTransparentColor = Color.Magenta
-            };
+                };
                 btn.Click += (object send, EventArgs args) => instantiateFigure = delegate ()
                 {
-                    Figure fig = (Figure)Activator.CreateInstance(type);
+                    Figure fig = factory.Instantiate();
                     fig.Canvas = FiguresProperties.Canvas;
                     fig.DrawingPen = new Pen(new SolidBrush(FiguresProperties.CurrBrushColor));
                     return fig;
@@ -181,32 +183,38 @@ namespace SuperPaint
 
         private void Line_Click(object sender, EventArgs e)
         {
-            instantiateFigure = () => new Line();
+            IFigureFactory factory = new LineFactory();
+            instantiateFigure = () => factory.Instantiate();
         }
 
         private void PolyLine_Click(object sender, EventArgs e)
         {
-            instantiateFigure = () => new PolyLine();
+            IFigureFactory factory = new PolyLineFactory();
+            instantiateFigure = () => factory.Instantiate();
         }
 
         private void Rectan_Click(object sender, EventArgs e)
         {
-            instantiateFigure = () => new Rectan();
+            IFigureFactory factory = new RectanFactory();
+            instantiateFigure = () => factory.Instantiate();
         }
 
         private void Ellipse_Click(object sender, EventArgs e)
         {
-            instantiateFigure = () => new Ellipse();
+            IFigureFactory factory = new EllipseFactory();
+            instantiateFigure = () => factory.Instantiate();
         }
 
         private void manualPol_Click(object sender, EventArgs e)
         {
-            instantiateFigure = () => new ManualPolygon();
+            IFigureFactory factory = new ManualPolygonFactory();
+            instantiateFigure = () => factory.Instantiate();
         }
 
         private void ManualPolygon_Click(object sender, EventArgs e)
         {
-            instantiateFigure = () => new Polygon();
+            IFigureFactory factory = new PolygonFactory();
+            instantiateFigure = () => factory.Instantiate();
         }        
     }
 }

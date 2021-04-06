@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Actions\FigureCreate.cs" />
     <Compile Include="Actions\IFigureAction.cs" />
+    <Compile Include="Factory\Factories.cs" />
+    <Compile Include="Factory\IFigureFactory.cs" />
     <Compile Include="Figures\Ellipse.cs" />
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\FiguresProperties.cs" />
