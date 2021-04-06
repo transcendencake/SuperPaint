@@ -46,9 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\FigureCreate.cs" />
+    <Compile Include="Actions\IFigureAction.cs" />
+    <Compile Include="Factory\Factories.cs" />
+    <Compile Include="Factory\IFigureFactory.cs" />
+    <Compile Include="Figures\Ellipse.cs" />
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\FiguresProperties.cs" />
-    <Compile Include="Instruments.cs" />
+    <Compile Include="Figures\Line.cs" />
+    <Compile Include="Figures\ManualPolygon.cs" />
+    <Compile Include="Figures\Polygon.cs" />
+    <Compile Include="Figures\PolyLine.cs" />
+    <Compile Include="Figures\Rectan.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +66,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\DrawingUtils.cs" />
+    <Compile Include="Utils\Storage.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -83,7 +94,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Serialization\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wigth.png" />
     <None Include="Resources\undo.png" />
