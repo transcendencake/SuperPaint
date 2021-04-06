@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperPaint", "SuperPaint.csproj", "{D761D1DB-7776-4817-A60E-2E7505FB7D99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trapezoid", "..\lab_6\Trapezoid\Trapezoid.csproj", "{A309CE3E-3445-487A-A139-7BC784DB7F1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trapezoid", "..\Trapezoid\Trapezoid.csproj", "{A309CE3E-3445-487A-A139-7BC784DB7F1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
