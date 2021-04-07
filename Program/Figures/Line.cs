@@ -27,7 +27,6 @@ namespace SuperPaint.Figures
             result += Points[1].X + ",";
             result += Points[1].Y;
             return result;
-            //result += ((SolidBrush)DrawingPen.Brush).Color.Name;
         }
 
         public override void Deserialize(string[] values)

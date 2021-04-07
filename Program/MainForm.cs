@@ -28,11 +28,6 @@ namespace SuperPaint
             drawing = false;
             instantiateFigure = null;
         }
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-        }
-
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             instantiateFigure = null;

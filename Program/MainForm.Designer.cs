@@ -345,7 +345,6 @@ namespace SuperPaint
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Form1";
-            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.menuStrip1.ResumeLayout(false);
