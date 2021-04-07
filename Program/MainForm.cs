@@ -21,12 +21,14 @@ namespace SuperPaint
         private bool drawing;
         private delegate Figure Instantiate();
         Instantiate instantiateFigure;
+        private List<Type> exportedTypes;
         public MainForm()
         {
             InitializeComponent();
             FiguresProperties.Canvas = this.CreateGraphics();
             drawing = false;
             instantiateFigure = null;
+            exportedTypes = new List<Type>();
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -48,15 +50,23 @@ namespace SuperPaint
             Storage.Clear();
             using (StreamReader streamReader = new StreamReader(deserializeDialog.FileName))
             {
+                bool warning = false;
                 string line;
                 while ((line = streamReader.ReadLine()) != null)
                 {
                     string[] temp = line.Split(',');
-                    Type figureType = Type.GetType(temp[0], true);
-                    Figure figure = figureType.GetConstructor(new Type[0]).Invoke(new Object[0]) as Figure;
-                    figure.Deserialize(temp);
-                    Storage.AllFigures.Add(figure);
+                    Type figureType = Type.GetType(temp[0], false);
+                    figureType = figureType ?? exportedTypes.Find(t => t.FullName == temp[0]);
+                    if (figureType == null) warning = true;
+                    else
+                    {
+                        Figure figure = figureType.GetConstructor(new Type[0]).Invoke(new Object[0]) as Figure;
+                        figure.Deserialize(temp);
+                        figure.Canvas = FiguresProperties.Canvas;
+                        Storage.AllFigures.Add(figure);
+                    }                    
                 }
+                if (warning) MessageBox.Show("Unknown figure found", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             DrawingUtils.Redraw();
         }
@@ -67,8 +77,9 @@ namespace SuperPaint
             var interfaceType = typeof(IFigureFactory); 
             Type[] types = asm.GetTypes().Where(t => t != interfaceType && interfaceType.IsAssignableFrom(t)).ToArray();
             foreach (var type in types)
-            {
+            {                
                 IFigureFactory factory = (IFigureFactory)Activator.CreateInstance(type);
+                exportedTypes.Add(factory.FigureType);
                 ToolStripButton btn = new ToolStripButton
                 {
                     AutoSize = false,

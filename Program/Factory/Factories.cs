@@ -13,6 +13,10 @@ namespace SuperPaint
         {
             get { return "Line"; }
         }
+        public Type FigureType 
+        {
+            get { return typeof(Line); }
+        }
 
         public Figure Instantiate()
         {
@@ -25,7 +29,10 @@ namespace SuperPaint
         {
             get { return "Ellipse"; }
         }
-
+        public Type FigureType
+        {
+            get { return typeof(Ellipse); }
+        }
         public Figure Instantiate()
         {
             return new Ellipse();
@@ -37,7 +44,10 @@ namespace SuperPaint
         {
             get { return "Manual Polygon"; }
         }
-
+        public Type FigureType
+        {
+            get { return typeof(ManualPolygon); }
+        }
         public Figure Instantiate()
         {
             return new ManualPolygon();
@@ -49,7 +59,10 @@ namespace SuperPaint
         {
             get { return "Polygon"; }
         }
-
+        public Type FigureType
+        {
+            get { return typeof(Polygon); }
+        }
         public Figure Instantiate()
         {
             return new Polygon();
@@ -61,7 +74,10 @@ namespace SuperPaint
         {
             get { return "Rectangle"; }
         }
-
+        public Type FigureType
+        {
+            get { return typeof(Rectan); }
+        }
         public Figure Instantiate()
         {
             return new Rectan();
@@ -73,7 +89,10 @@ namespace SuperPaint
         {
             get { return "Polygon Line"; }
         }
-
+        public Type FigureType
+        {
+            get { return typeof(PolyLine); }
+        }
         public Figure Instantiate()
         {
             return new PolyLine();

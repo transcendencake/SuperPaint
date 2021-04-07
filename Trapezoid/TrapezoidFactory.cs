@@ -14,7 +14,10 @@ namespace Trapezoid
         {
             get { return "Trapezoid"; }
         }
-
+        public Type FigureType
+        {
+            get { return typeof(Trapezoid); }
+        }
         public Figure Instantiate()
         {
             return new Trapezoid();

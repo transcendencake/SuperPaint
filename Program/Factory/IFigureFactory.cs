@@ -10,6 +10,7 @@ namespace SuperPaint
     public interface IFigureFactory
     {
         string Name { get; }
+        Type FigureType { get; }
         Figure Instantiate();
     }
 }
