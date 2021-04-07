@@ -18,7 +18,6 @@ namespace SuperPaint
     public partial class MainForm : Form
     {
         private Figure currFigure;
-        //private string currFigureName;
         private bool drawing;
         private delegate Figure Instantiate();
         Instantiate instantiateFigure;
@@ -27,7 +26,7 @@ namespace SuperPaint
             InitializeComponent();
             FiguresProperties.Canvas = this.CreateGraphics();
             drawing = false;
-            instantiateFigure = () => new Line();
+            instantiateFigure = null;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -36,6 +35,7 @@ namespace SuperPaint
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            instantiateFigure = null;
             if (serializeDialog.ShowDialog() == DialogResult.Cancel) return;
             using (StreamWriter streamWriter = new StreamWriter(serializeDialog.FileName, false))
             {
@@ -48,6 +48,7 @@ namespace SuperPaint
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            instantiateFigure = null;
             if (deserializeDialog.ShowDialog() == DialogResult.Cancel) return;
             Storage.Clear();
             using (StreamReader streamReader = new StreamReader(deserializeDialog.FileName))
@@ -111,30 +112,12 @@ namespace SuperPaint
             if (penColorDialog.ShowDialog() == DialogResult.Cancel) return;
             FiguresProperties.CurrBrushColor = penColorDialog.Color;
         }
-
-        //private void Figure_Click(object sender, EventArgs e)
-        //{
-        //    currFigure = null;
-        //    drawing = false;
-        //    var button = sender as ToolStripButton;
-        //    if (button != null)
-        //    {
-        //        string name = button.Name;
-        //        if (!Storage.Constructors.ContainsKey(name))
-        //        {
-        //            Type figureType = Type.GetType("SuperPaint.Figures." + button.Name, true);
-        //            Storage.Constructors.Add(name, figureType.GetConstructor(new Type[0]));
-        //        }
-        //        currFigureName = name;
-        //    }                
-        //}
-
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             if (!drawing)
             {
-                //if (currFigureName == null) return;
-                currFigure = instantiateFigure();//Storage.Constructors[currFigureName].Invoke(new Object[0]) as Figure;
+                if (instantiateFigure == null) return;
+                currFigure = instantiateFigure();
                 drawing = true;
             }
             if (e.Button == MouseButtons.Left)
@@ -143,12 +126,13 @@ namespace SuperPaint
             }
             else if (e.Button == MouseButtons.Right)
             {                
-                if (currFigure.Points.Count >= 2)
+                if (currFigure.Points.Count < 2)
                 {
-                    Storage.AllFigures.Add(currFigure);
-                    Storage.AddAction(new FigureCreate { Figure = currFigure });
-                    DrawingUtils.Redraw();
+                    currFigure.Points.Add(e.Location);
                 }
+                Storage.AllFigures.Add(currFigure);
+                Storage.AddAction(new FigureCreate { Figure = currFigure });
+                DrawingUtils.Redraw();
                 currFigure = null;
                 drawing = false;
             }
@@ -165,12 +149,14 @@ namespace SuperPaint
 
         private void undo_Click(object sender, EventArgs e)
         {
+            instantiateFigure = null;
             Storage.Undo();
             DrawingUtils.Redraw();
         }
 
         private void redo_Click(object sender, EventArgs e)
         {
+            instantiateFigure = null;
             Storage.Redo();
             DrawingUtils.Redraw();
         }
@@ -215,6 +201,7 @@ namespace SuperPaint
         {
             IFigureFactory factory = new PolygonFactory();
             instantiateFigure = () => factory.Instantiate();
-        }        
+        }
+
     }
 }
